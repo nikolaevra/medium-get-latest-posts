@@ -2,7 +2,7 @@ let api = require('./index.js');
 
 api.getUserLatestPosts('ev').then((data) => {
     //console.log(data);
-
+    console.log("Successful Test")
 }).catch((err) => {
     console.log(`Test failed: ${err.message}`);
     console.log(err.stack);
