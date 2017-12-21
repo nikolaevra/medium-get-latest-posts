@@ -1,0 +1,23 @@
+{
+  "name": "medium-get-user-posts",
+  "version": "1.0.0",
+  "description": "Get all of the latest posts made by a user",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikolaevra/medium-get-user-posts.git"
+  },
+  "keywords": [
+    "medium",
+    "api"
+  ],
+  "author": "https:www.nikolaevra.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nikolaevra/medium-get-user-posts/issues"
+  },
+  "homepage": "https://github.com/nikolaevra/medium-get-user-posts#readme"
+}
