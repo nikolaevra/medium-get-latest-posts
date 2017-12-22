@@ -17,7 +17,7 @@ To get Publisher's posts
 ``` javascript 1.8
 const mediumGetUserPosts = require("medium-get-user-posts")
 
-mediumGetUserPosts.getUserLatestPosts('the-atlantic').then((data) => {
+mediumGetUserPosts.getPublisherLatestPosts('the-atlantic').then((data) => {
     console.log(data);
 }).catch((err) => {
     console.log(err);
