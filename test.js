@@ -2,7 +2,7 @@ let api = require('./index.js');
 
 
 api.getUserLatestPosts('ev').then((data) => {
-    //console.log(data);
+    console.log(JSON.stringify(data));
     console.log("Successful Test to get user posts")
 }).catch((err) => {
     console.log(`Test failed: ${err.message}`);
@@ -11,7 +11,7 @@ api.getUserLatestPosts('ev').then((data) => {
 });
 
 api.getPublisherLatestPosts('the-atlantic').then((data) => {
-    //console.log(data);
+    console.log(JSON.stringify(data));
     console.log("Successful Test to get publishers posts")
 }).catch((err) => {
     console.log(`Test failed: ${err.message}`);
