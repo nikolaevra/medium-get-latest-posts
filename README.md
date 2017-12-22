@@ -4,7 +4,9 @@ Get all of the latest posts made by a user. Returns a promise that resolves to u
 ## Usage:
 To get User posts
 ``` javascript 1.8
-api.getUserLatestPosts('ev').then((data) => {
+const mediumGetUserPosts = require("medium-get-user-posts")
+
+mediumGetUserPosts.getUserLatestPosts('ev').then((data) => {
     console.log(data);
 }).catch((err) => {
     console.log(err);
@@ -13,7 +15,9 @@ api.getUserLatestPosts('ev').then((data) => {
 
 To get Publisher's posts
 ``` javascript 1.8
-api.getPublisherLatestPosts('the-atlantic').then((data) => {
+const mediumGetUserPosts = require("medium-get-user-posts")
+
+mediumGetUserPosts.getUserLatestPosts('the-atlantic').then((data) => {
     console.log(data);
 }).catch((err) => {
     console.log(err);
