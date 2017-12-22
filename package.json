@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/nikolaevra/medium-get-user-posts#readme",
   "dependencies": {
-    "htmlparser2": "^3.9.2"
+    "request": "^2.83.0"
   }
 }

@@ -1,76 +1,72 @@
-let htmlparser = require("htmlparser2");
+const request = require('request');
 
 exports.getUserLatestPosts = function(username) {
     let url = `https://medium.com/@${username}/latest`;
 
     return new Promise((resolve, reject) => {
-        getPosts(url).then((data) => {
-            let handler = new htmlparser.DomHandler(function (error, dom) {
-                if (error) {
-                    reject(error);
-                } else {
-                    let latestsPosts = [];
-                    let stories = dom[1].children[1].children[1].children[1].children[0].children[5].children;
+        getPosts2(url).then((data) => {
+            let results = [];
+            const parsed = JSON.parse(data).payload;
+            const posts = parsed.references.Post;
 
-                    for (let i = 0; i < stories.length; i++) {
-                        let results = {};
-
-                        if (stories[i].attribs.class === "streamItem streamItem--postPreview js-streamItem") {
-                            let post = stories[i].children[0].children[0].children[1].children[0].children[0].children[0].children[1].children[0].children;
-
-                            results.url = null;
-                            results.img = null;
-                            results.title = null;
-                            results.subtitle = null;
-
-                            results.url = stories[i].children[0].children[0].children[1].children[0].attribs.href.split('?')[0];
-
-                            if (post[0]) {
-                                if (post[0].attribs['name'] === 'previewImage') {
-                                    results.img = post[0].children[0].children[1].attribs['src'];
-                                } else if (post[0].children[0].data) {
-                                    results.title = post[0].children[0].data;
-                                }
-                            }
-
-                            if (post[1]) {
-                                if (post[1].name === 'h3') {
-                                    results.title = post[1].children[0].data;
-                                } else {
-                                    results.subtitle = post[1].children[0].data;
-                                }
-                            }
-
-                            if (post[2] && post[2].children[0].data) {
-                                results.subtitle = post[2].children[0].data;
-                            }
-                        }
-                        latestsPosts.push(results);
-                    }
-                    resolve(latestsPosts);
-                }
+            Object.keys(posts).forEach((key) => {
+                let post = posts[key];
+                results.push({
+                    url: `https://medium.com/the-atlantic/${post.uniqueSlug}`,
+                    img: `https://cdn-images-1.medium.com/max/500/${post.virtuals.previewImage.imageId}`,
+                    title: post.title,
+                    subtitle: post.virtuals.subtitle,
+                    tags: post.virtuals.tags
+                });
             });
 
-            let parser = new htmlparser.Parser(handler);
-            parser.write(data);
-            parser.end();
+            resolve(results);
         }).catch((err) => {
             reject(err);
         });
     });
-
-    function getPosts(url) {
-        return new Promise((resolve, reject) => {
-            const lib = url.startsWith('https') ? require('https') : require('http');
-            const request = lib.get(url, (response) => {
-                if (response.statusCode < 200 || response.statusCode > 299) {
-                    reject(new Error('Failed to load page, status code: ' + response.statusCode));
-                }
-                const body = [];
-                response.on('data', (chunk) => body.push(chunk));
-                response.on('end', () => resolve(body.join('')));
-            });
-            request.on('error', (err) => reject(err))
-        })
-    }
 };
+
+exports.getPublisherLatestPosts = function(username) {
+    let url = `https://medium.com/${username}/latest`;
+
+    return new Promise((resolve, reject) => {
+        getPosts2(url).then((data) => {
+            let results = [];
+            const parsed = JSON.parse(data).payload;
+            const posts = parsed.posts;
+
+            for (let i = 0; i < posts.length; i++) {
+                results.push({
+                    url: `https://medium.com/the-atlantic/${posts[i].uniqueSlug}`,
+                    img: `https://cdn-images-1.medium.com/max/500/${posts[i].virtuals.previewImage.imageId}`,
+                    title: posts[i].title,
+                    subtitle: posts[i].virtuals.subtitle,
+                    tags: posts[i].virtuals.tags
+                });
+            }
+
+            resolve(results);
+        }).catch((err) => {
+            reject(err);
+        });
+    });
+};
+
+function getPosts2(url) {
+    return new Promise((resolve, reject) => {
+        const options = {
+            method: 'GET',
+            url: url,
+            json: true
+        };
+
+        request(options, (err, res, body) => {
+            if (err) {
+                reject(err);
+            } else if (res.statusCode === 200) {
+                resolve(body.split('\</x>')[1]);
+            }
+        })
+    })
+}
