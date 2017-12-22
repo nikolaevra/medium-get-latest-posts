@@ -1,5 +1,9 @@
 # medium-get-latest-posts
-Get all of the latest posts made by a user. Returns a promise that resolves to latest posts
+Get all of the latest posts made by a user. Returns a promise that resolves to latest posts, see more here https://www.npmjs.com/package/medium-get-latest-posts
+
+## NPM installation
+In your project root directory run the following
+`npm i -s medium-get-latest-posts`
 
 ## Usage:
 To get User's latest posts
