@@ -1,10 +1,10 @@
-# medium-get-user-posts
-Get all of the latest posts made by a user. Returns a promise that resolves to user's latests posts
+# medium-get-latest-posts
+Get all of the latest posts made by a user. Returns a promise that resolves to latest posts
 
 ## Usage:
-To get User posts
+To get User's latest posts
 ``` javascript 1.8
-const mediumGetUserPosts = require("medium-get-user-posts")
+const mediumGetLatestPosts = require("medium-get-latest-posts")
 
 mediumGetUserPosts.getUserLatestPosts('ev').then((data) => {
     console.log(data);
@@ -13,9 +13,9 @@ mediumGetUserPosts.getUserLatestPosts('ev').then((data) => {
 });
 ```
 
-To get Publisher's posts
+To get Publisher's latest posts
 ``` javascript 1.8
-const mediumGetUserPosts = require("medium-get-user-posts")
+const mediumGetLatestPosts = require("medium-get-latest-posts")
 
 mediumGetUserPosts.getPublisherLatestPosts('the-atlantic').then((data) => {
     console.log(data);
@@ -25,7 +25,7 @@ mediumGetUserPosts.getPublisherLatestPosts('the-atlantic').then((data) => {
 ```
 
 ## Output:
-`getUserLatestsPosts()` and `getPublisherLatestsPosts()` produces the same output object:
+`getUserLatestPosts()` and `getPublisherLatestPosts()` produces the same output object:
 ``` javascript 1.8
 [
   {
