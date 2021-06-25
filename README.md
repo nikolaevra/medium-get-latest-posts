@@ -10,7 +10,7 @@ To get User's latest posts
 ``` javascript 1.8
 const mediumGetLatestPosts = require("medium-get-latest-posts")
 
-mediumGetUserPosts.getUserLatestPosts('ev').then((data) => {
+mediumGetLatestPosts.getUserLatestPosts('ev').then((data) => {
     console.log(data);
 }).catch((err) => {
     console.log(err);
@@ -21,7 +21,7 @@ To get Publisher's latest posts
 ``` javascript 1.8
 const mediumGetLatestPosts = require("medium-get-latest-posts")
 
-mediumGetUserPosts.getPublisherLatestPosts('the-atlantic').then((data) => {
+mediumGetLatestPosts.getPublisherLatestPosts('the-atlantic').then((data) => {
     console.log(data);
 }).catch((err) => {
     console.log(err);
